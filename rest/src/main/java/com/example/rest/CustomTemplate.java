@@ -23,23 +23,7 @@ public class CustomTemplate extends RestTemplate {
     private Logger logger = LoggerFactory.getLogger(CustomTemplate.class);
 
     public ResponseEntity<List<University>> get() throws RemoteAPIException {
-        try {
-            logger.info("GET " + api);
-            ResponseEntity<List<University>> response =
-                    exchange(api, HttpMethod.GET, null, new ParameterizedTypeReference<List<University>>() {
-                    });
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                logger.info("GET " + api + ": " + response.getStatusCode());
-                return response;
-            } else {
-                logger.error("GET " + api + ": " + response.getStatusCode());
-                throw new RemoteAPIException("Cannot retrieve data from " + api);
-            }
-        } catch (Exception e) {
-            logger.error("GET " + api + ": " + e.getMessage());
-            throw new RemoteAPIException(e.getMessage());
-        }
+        return getListResponseEntity(api);
 
     }
 
@@ -47,22 +31,26 @@ public class CustomTemplate extends RestTemplate {
         country = country.replace(' ', '+');
         String api_param = api + "?country=" + country;
 
+        return getListResponseEntity(api_param);
+
+    }
+
+    private ResponseEntity<List<University>> getListResponseEntity(String url) throws RemoteAPIException {
         try{
-            logger.info("GET " + api_param);
+            logger.info("GET " + url);
             ResponseEntity<List<University>> response =
-                    exchange(api_param, HttpMethod.GET, null, new ParameterizedTypeReference<List<University>>() {});
+                    exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                logger.info("GET " + api_param + ": " + response.getStatusCode());
+                logger.info("GET " + url + ": " + response.getStatusCode());
                 return response;
             } else {
-                logger.error("GET " + api_param + ": " + response.getStatusCode());
+                logger.error("GET " + url + ": " + response.getStatusCode());
                 throw new RemoteAPIException("Cannot retrieve data from " + api);
             }
         } catch (Exception e) {
-            logger.error("GET " + api_param + ": " + e.getMessage());
+            logger.error("GET " + url + ": " + e.getMessage());
             throw new RemoteAPIException(e.getMessage());
         }
-
     }
 }
