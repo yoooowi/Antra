@@ -1,7 +1,7 @@
 # Many-to-Many Book-Author Server
 
 ## APIs
-API documentation can also be seen at [http://localhost:8888/swagger-ui/index.html#/author-controller/findAuthorById](http://localhost:8888/swagger-ui/index.html#/author-controller/findAuthorById)
+API documentation can also be seen at `http://localhost:[port]/swagger-ui/index.html`
 
 - `GET /book/{id}`  
   Returns a `BookDTO` object if such book exists, or `404` if it doesn't exist. 
