@@ -9,15 +9,15 @@ CREATE TABLE books (
 );
 
 CREATE TABLE authors (
-                         author_id SERIAL PRIMARY KEY,
-                         first_name VARCHAR(100) NOT NULL,
-                         last_name VARCHAR(100) NOT NULL
+    author_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE books_authors (
-                              id SERIAL PRIMARY KEY,
-                              book_id INTEGER REFERENCES books(book_id),
-                              author_id INTEGER REFERENCES authors(author_id)
+    id SERIAL PRIMARY KEY,
+    book_id INTEGER REFERENCES books(book_id),
+    author_id INTEGER REFERENCES authors(author_id)
 );
 ```
 ## APIs
