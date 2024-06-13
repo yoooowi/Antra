@@ -1,5 +1,25 @@
 # Many-to-Many Book-Author Server
 
+## Database Schemas
+
+```postgresql
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE authors (
+                         author_id SERIAL PRIMARY KEY,
+                         first_name VARCHAR(100) NOT NULL,
+                         last_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE books_authors (
+                              id SERIAL PRIMARY KEY,
+                              book_id INTEGER REFERENCES books(book_id),
+                              author_id INTEGER REFERENCES authors(author_id)
+);
+```
 ## APIs
 API documentation can also be seen at `http://localhost:[port]/swagger-ui/index.html`
 
