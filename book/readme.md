@@ -16,8 +16,8 @@ CREATE TABLE authors (
 
 CREATE TABLE books_authors (
     id SERIAL PRIMARY KEY,
-    book_id INTEGER REFERENCES books(book_id),
-    author_id INTEGER REFERENCES authors(author_id)
+    bid INTEGER REFERENCES books(book_id),
+    aid INTEGER REFERENCES authors(author_id)
 );
 ```
 ## APIs
