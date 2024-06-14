@@ -24,7 +24,7 @@ public class Author {
     private String lastName;
     @Column(name = "first_name")
     private String firstName;
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private final Set<BookAuthor> bookAuthors;
 
     public Author() {

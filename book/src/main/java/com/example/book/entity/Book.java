@@ -23,7 +23,8 @@ public class Book {
     private Integer id;
     @Column(name = "title")
     private String title;
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<BookAuthor> bookAuthors;
 
     public Book() {

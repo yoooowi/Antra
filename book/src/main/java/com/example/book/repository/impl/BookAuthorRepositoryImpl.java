@@ -20,10 +20,7 @@ public class BookAuthorRepositoryImpl implements BookAuthorRepository {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void insertAuthors(Book book) {
-        int bookId = book.getId();
-        //BookAuthor ba;
         for (BookAuthor a : book.getBookAuthors()) {
             entityManager.persist(a);
         }
@@ -32,7 +29,7 @@ public class BookAuthorRepositoryImpl implements BookAuthorRepository {
     @Override
     public List<Book> findBooksWrittenBy(String firstName, String lastName) {
         TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT b FROM Book b JOIN BookAuthor a ON b.id = a.book.id WHERE a.author.firstName = :fn AND a.author.lastName = :ln",
+                "SELECT b FROM Book b JOIN FETCH BookAuthor a ON b.id = a.book.id WHERE a.author.firstName = :fn AND a.author.lastName = :ln",
                 Book.class
         );
 
