@@ -20,21 +20,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> noRes(NoResourceFoundException ex) {
-        logger.warn(ex.getMessage());
+        logger.info(ex.getMessage());
         return new ResponseEntity<>("Resource not found.", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> entityNotFound(EntityNotFoundException ex) {
-        logger.warn(ex.getMessage());
+        logger.error(ex.getMessage());
         return new ResponseEntity<>("Invalid id in request", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidNameFormatException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> invalidNameFormat(InvalidNameFormatException ex) {
-        logger.warn(ex.getMessage());
+        logger.error(ex.getMessage());
         return new ResponseEntity<>("Name should be in the format of [firstName]+[lastName]",
                 HttpStatus.BAD_REQUEST);
     }
@@ -42,19 +42,33 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> mismatchType(MethodArgumentTypeMismatchException ex) {
-        logger.warn(ex.getMessage());
+        logger.error(ex.getMessage());
         return new ResponseEntity<>("Id should be numeric", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> invalidHttpMethod(HttpRequestMethodNotSupportedException ex) {
-        logger.info(ex.getMessage());
+        logger.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(org.springframework.web.servlet.resource.NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> invalidUrl(org.springframework.web.servlet.resource.NoResourceFoundException ex) {
+        logger.error(ex.getMessage());
+        return new ResponseEntity<>("Invalid path", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> invalidRequestBody(NullPointerException ex) {
+        logger.error(ex.getMessage());
+        return new ResponseEntity<>("Invalid request body format", HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> generalExceptions(Exception ex) {
         logger.error(ex.getMessage());
         ex.printStackTrace();
